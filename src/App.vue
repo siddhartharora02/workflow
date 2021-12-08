@@ -7,3 +7,8 @@
     <router-view/>
   </div>
 </template>
+<style lang="scss">
+.d-flex {
+  display: flex;
+}
+</style>

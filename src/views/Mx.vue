@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     <div v-for="(schema, i) in schemas" :key="i">
       <div v-show="i === activeSchema">
         <FormulateForm
@@ -8,6 +8,11 @@
           :schema="schema"
         />
       </div>
+    </div>
+    <div>
+      <pre>
+        {{ jsonFormat  }}
+      </pre>
     </div>
   </div>
 </template>
@@ -100,6 +105,11 @@ export default {
       valuesCollection: [],
       activeSchema: 0,
       schemas: [form1, form2, form3]
+    }
+  },
+  computed: {
+    jsonFormat () {
+      return JSON.stringify(this.valuesCollection, null, 2)
     }
   },
   methods: {
