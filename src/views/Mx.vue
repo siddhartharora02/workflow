@@ -1,24 +1,30 @@
 <template>
-  <div class="container">
-    <div v-for="(schema, i) in schemas" :key="i">
-      <div v-show="i === activeSchema">
-        <FormulateForm
-          v-model="valuesCollection[i]"
-          @submit="onSubmit"
-          :schema="schema"
-        />
+  <v-row>
+    <v-col>
+      <div v-for="(schema, i) in schemas" :key="i">
+        <div v-show="i === activeSchema">
+          <FormulateForm
+            v-model="valuesCollection[i]"
+            @submit="onSubmit"
+            :schema="schema"
+          />
+        </div>
       </div>
-    </div>
-    <div>
-      <pre>
-        {{ jsonFormat  }}
-      </pre>
-    </div>
-  </div>
+    </v-col>
+    <v-col>
+      <div class="black white--text rounded-xl pa-5">
+        <pre>{{ jsonFormat  }}</pre>
+      </div>
+    </v-col>
+  </v-row>
 </template>
 
 <script>
 const form1 = [
+  {
+    component: 'h3',
+    children: 'Task 1: Owners Information'
+  },
   {
     type: 'group',
     repeatable: true,
@@ -53,50 +59,17 @@ const form1 = [
 ]
 const form2 = [
   {
-    component: 'h1',
-    children: 'Family registration'
+    component: 'h3',
+    children: 'CIEC Code'
   },
   {
-    label: 'Your Father name',
-    name: 'name',
+    name: 'ciec',
     validation: 'required'
   },
   {
-    label: 'Your email*',
-    name: 'email',
-    help: 'Please use your student email address',
-    validation: 'bail|required|email|ends_with:.edu',
-    'validation-messages': {
-      ends_with: 'Please use a .edu email address'
-    }
-  },
-  {
     type: 'submit',
-    label: 'Step 3'
-  }
-]
-const form3 = [
-  {
-    component: 'h1',
-    children: 'Family registration'
-  },
-  {
-    label: 'Your Father name',
-    name: 'name',
-    validation: 'required'
-  },
-  {
-    label: 'Your email*',
-    name: 'email',
-    help: 'Please use your student email address',
-    validation: 'bail|required|email|ends_with:.edu',
-    'validation-messages': {
-      ends_with: 'Please use a .edu email address'
-    }
-  },
-  {
-    type: 'submit',
-    label: 'Submit'
+    label: 'Done',
+    disabled: true
   }
 ]
 export default {
@@ -104,7 +77,7 @@ export default {
     return {
       valuesCollection: [],
       activeSchema: 0,
-      schemas: [form1, form2, form3]
+      schemas: [form1, form2]
     }
   },
   computed: {

@@ -1,14 +1,24 @@
 <template>
-  <div id="app">
-    <header>
-      <router-link to="/in" style="margin-right: 15px">India</router-link>
-      <router-link to="/mx">Mexico</router-link>
-    </header>
-    <router-view/>
-  </div>
+  <v-app>
+    <v-main>
+      <v-container>
+        <header class="mb-10">
+          <router-link to="/in" class="mr-4">India</router-link>
+          <router-link to="/mx">Mexico</router-link>
+        </header>
+        <router-view/>
+      </v-container>
+    </v-main>
+  </v-app>
 </template>
-<style lang="scss">
-.d-flex {
-  display: flex;
+
+<script>
+
+export default {
+  name: 'App',
+
+  data: () => ({
+    //
+  })
 }
-</style>
+</script>

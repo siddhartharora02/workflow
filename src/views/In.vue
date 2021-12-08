@@ -1,96 +1,95 @@
 <template>
-  <div>
-    <div v-for="(schema, i) in schemas" :key="i">
-      <div v-show="i === activeSchema">
-        <FormulateForm
-          v-model="valuesCollection[i]"
-          @submit="onSubmit"
-          :schema="schema"
-        />
+  <v-row>
+    <v-col>
+      <div v-for="(schema, i) in schemas" :key="i">
+        <div v-show="i === activeSchema">
+          <FormulateForm
+            v-model="valuesCollection[i]"
+            @submit="onSubmit"
+            :schema="schema"
+          />
+        </div>
       </div>
-    </div>
-  </div>
+    </v-col>
+    <v-col>
+      <div class="black white--text rounded-xl pa-5">
+        <pre>{{ valuesCollection  }}</pre>
+      </div>
+    </v-col>
+  </v-row>
 </template>
 
 <script>
-const schema1 = [
+const form1 = [
   {
     component: 'h3',
-    children: 'Student registration'
+    children: 'Task 1: Company Information'
   },
   {
-    label: 'Your name',
+    label: 'Owner Name',
     name: 'name',
+    validation: 'required'
+  },
+  {
+    type: 'radio',
+    name: 'method',
+    label: 'What shipping method would you like?',
+    options: [
+      { value: 'fedex_overnight', id: 'fedex_overnight', label: 'FedEx overnight' },
+      { value: 'fedex_ground', id: 'fedex_ground', label: 'FedEx ground' },
+      { value: 'usps', id: 'usps', label: 'US Postal Service' }
+    ],
+    value: 'fedex_ground',
+    'validation-name': 'Shipping method',
     validation: 'required'
   },
   {
     label: 'Your email*',
     name: 'email',
-    help: 'Please use your student email address',
-    validation: 'bail|required|email|ends_with:.edu',
+    help: 'Please use your drip email address',
+    validation: 'bail|required|email|ends_with:@dripcapital.com',
     'validation-messages': {
-      ends_with: 'Please use a .edu email address'
+      ends_with: 'Please use a @dripcapital.com email address'
     }
   },
   {
-    label: 'Student ID',
-    name: 'student_id',
-    help: 'Your 6 digit student ID (ex. ST-123421)',
-    placeholder: 'ST-',
-    validation: '^required|matches:/^ST-[\\d]{6}$/',
-    'validation-name': 'Student ID'
+    label: 'IEC',
+    name: 'iec_code',
+    placeholder: 'Please enter IEC code',
+    validation: '^required',
+    'validation-name': 'IEC Code'
   },
   {
     type: 'submit',
     label: 'Step 2'
   }
 ]
-const schema2 = [
+const form2 = [
   {
-    component: 'h1',
-    children: 'Family registration'
+    component: 'h3',
+    children: 'Task 2: Buyer Information'
   },
   {
-    label: 'Your Father name',
+    label: 'Buyer Name',
     name: 'name',
     validation: 'required'
   },
   {
-    label: 'Your email*',
-    name: 'email',
-    help: 'Please use your student email address',
-    validation: 'bail|required|email|ends_with:.edu',
-    'validation-messages': {
-      ends_with: 'Please use a .edu email address'
+    name: 'country',
+    type: 'select',
+    label: 'Country',
+    options: {
+      '': 'Please Select',
+      mx: 'Mexico',
+      in: 'India',
+      us: 'USA',
+      ec: 'Ecuador'
     }
   },
   {
     type: 'submit',
-    label: 'Step 3'
-  }
-]
-const schema3 = [
-  {
-    component: 'h1',
-    children: 'Family registration'
-  },
-  {
-    label: 'Your Father name',
-    name: 'name',
-    validation: 'required'
-  },
-  {
-    label: 'Your email*',
-    name: 'email',
-    help: 'Please use your student email address',
-    validation: 'bail|required|email|ends_with:.edu',
-    'validation-messages': {
-      ends_with: 'Please use a .edu email address'
-    }
-  },
-  {
-    type: 'submit',
-    label: 'Submit'
+    label: 'Done',
+    disabled: true
   }
 ]
 export default {
@@ -98,7 +97,7 @@ export default {
     return {
       valuesCollection: [],
       activeSchema: 0,
-      schemas: [schema1, schema2, schema3]
+      schemas: [form1, form2]
     }
   },
   methods: {
